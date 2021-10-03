@@ -29,17 +29,17 @@ const getFavFlower = async (req, res) => {
 
 const deleteFavFlower = (req, res) => {
 	const slug = req.params.slug;
-	flowerModel.deleteOne({ slug: slug }, (error, data) => {
+	flowerModel.deleteOne({ slug: slug }, async (error, data) => {
 		if (error) {
 			res.send(error);
 		} else {
-			const data = flowerModel.find({});
+			const data = await flowerModel.find({});
 			res.send(data);
 		}
 	});
 };
 
-const updateavFlower = (req, res) => {
+const updateavFlower = async (req, res) => {
 	const slug = req.params.slug;
 	const updateData = req.body;
 	flowerModel.findOne({ slug: slug }, (error, data) => {
@@ -48,7 +48,7 @@ const updateavFlower = (req, res) => {
 		data.save();
 	});
 
-	const data = flowerModel.find({});
+	const data = await flowerModel.find({});
 	res.send(data);
 };
 
